@@ -2,8 +2,8 @@
 
 namespace Gofer.NET
 {
-    public interface IBackendLock
-    {
-        Task Release();
-    }
+  public interface IBackendLock
+  {
+    Task Release();
+  }
 }

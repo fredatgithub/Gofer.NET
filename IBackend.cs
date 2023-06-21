@@ -1,58 +1,57 @@
-﻿using System.Collections;
+﻿using StackExchange.Redis;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using StackExchange.Redis;
 
 namespace Gofer.NET
 {
-    public interface IBackend
-    {
-        Task Enqueue(string queueKey, string jsonString);
+  public interface IBackend
+  {
+    Task Enqueue(string queueKey, string jsonString);
 
-        Task<string> Dequeue(string queueKey);
+    Task<string> Dequeue(string queueKey);
 
-        Task<IEnumerable<string>> DequeueBatch(string queueKey, int batchSize=100);
+    Task<IEnumerable<string>> DequeueBatch(string queueKey, int batchSize = 100);
 
-        Task<long> QueueCount(string key);
+    Task<long> QueueCount(string key);
 
-        Task<IBackendLock> LockBlocking(string lockKey);
+    Task<IBackendLock> LockBlocking(string lockKey);
 
-        Task<IBackendLock> LockNonBlocking(string lockKey);
-        
-        Task SetString(string key, string value);
+    Task<IBackendLock> LockNonBlocking(string lockKey);
 
-        Task<string> GetString(string key);
+    Task SetString(string key, string value);
 
-        Task<IEnumerable<string>> GetStrings(IEnumerable<string> key);
+    Task<string> GetString(string key);
 
-        Task<ISet<string>> GetSet(string key);
+    Task<IEnumerable<string>> GetStrings(IEnumerable<string> key);
 
-        Task AddToSet(string key, string value);
+    Task<ISet<string>> GetSet(string key);
 
-        Task RemoveFromSet(string key, string value);
+    Task AddToSet(string key, string value);
 
-        Task<IEnumerable<string>> GetList(string key);
+    Task RemoveFromSet(string key, string value);
 
-        Task<long> AddToList(string key, string value);
+    Task<IEnumerable<string>> GetList(string key);
 
-        Task<long> RemoveFromList(string key, string value);
+    Task<long> AddToList(string key, string value);
 
-        Task DeleteKey(string key);
+    Task<long> RemoveFromList(string key, string value);
 
-        Task<LoadedLuaScript> LoadLuaScript(string scriptContents);
+    Task DeleteKey(string key);
 
-        Task<RedisResult> RunLuaScript(LoadedLuaScript script, RedisKey[] keys, RedisValue[] values);
+    Task<LoadedLuaScript> LoadLuaScript(string scriptContents);
 
-        Task AddToOrderedSet(string setKey, long score, string value);
- 
-        Task<bool> RemoveFromOrderedSet(string setKey, string value);
+    Task<RedisResult> RunLuaScript(LoadedLuaScript script, RedisKey[] keys, RedisValue[] values);
 
-        Task SetMapField(string mapKey, string mapField, RedisValue value);
+    Task AddToOrderedSet(string setKey, long score, string value);
 
-        Task SetMapFields(string mapKey, params (RedisValue, RedisValue)[] mapFieldValuePairs);
+    Task<bool> RemoveFromOrderedSet(string setKey, string value);
 
-        Task<bool> DeleteMapFields(string mapKey, params RedisValue[] mapFields);
+    Task SetMapField(string mapKey, string mapField, RedisValue value);
 
-        Task<RedisValue> GetMapField(string mapKey, string mapField);
-    }
+    Task SetMapFields(string mapKey, params (RedisValue, RedisValue)[] mapFieldValuePairs);
+
+    Task<bool> DeleteMapFields(string mapKey, params RedisValue[] mapFields);
+
+    Task<RedisValue> GetMapField(string mapKey, string mapField);
+  }
 }
