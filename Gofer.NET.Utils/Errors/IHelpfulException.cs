@@ -1,7 +1,7 @@
 ﻿namespace Gofer.NET.Errors
 {
-    public interface IHelpfulException
-    {
-        string HelpText { get; }
-    }
+  public interface IHelpfulException
+  {
+    string HelpText { get; }
+  }
 }
